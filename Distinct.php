@@ -3,15 +3,45 @@
 
 
 function solution(Array $arr) {
-    return count(array_count_values($arr));
+	$uniques = array();
+
+	foreach($arr as $value) {
+		if(!in_array($value, $uniques)) {
+			$uniques[] = $value;
+		}
+	}
+
+	return count($uniques);
 }
 
 
 function solutionTest() {
-    $example = [2, 1, 1, 2, 3, 1];
-
-    return solution($example) === 3;
+	$tests = array(
+		[
+			'input' => [2, 1, 1, 2, 3, 1],
+			'expected' => 3
+		], [
+			'input' => [1, 1, 1], 
+			'expected' => 1
+		], [
+			'input' => [1], 
+			'expected' => 1
+		], [
+			'input' => [-1, -1, 4, 5, 6, 4, 4, 0, 0], 
+			'expected' => 5
+		]);
+    
+    foreach($tests as $num => $test) {
+    	if(solution($test['input']) !== $test['expected']) {
+    		echo "Test ".$num." failed!".PHP_EOL;
+    		return false;
+    	}
+    }
+    
+    echo "All tests passed!".PHP_EOL;
+    return true;
 }
 
+solutionTest();
 
 ?>
