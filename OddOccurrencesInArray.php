@@ -13,5 +13,11 @@ function solution(Array $arr) {
 
 }
 
+function solutionTest() {
+    $example = [9, 3, 9, 3, 9, 7, 9];
+
+    return solution($example) === 7;
+}
+
 
 ?>
