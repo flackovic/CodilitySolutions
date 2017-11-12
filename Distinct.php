@@ -9,6 +9,7 @@ function solution(Array $arr) {
 
 function solutionTest() {
     $example = [2, 1, 1, 2, 3, 1];
+
     return solution($example) === 3;
 }
 
