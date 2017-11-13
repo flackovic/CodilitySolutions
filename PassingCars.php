@@ -1,32 +1,43 @@
 <?php
 // URL: https://codility.com/programmers/lessons/5-prefix_sums/passing_cars/
+require_once('Test.php');
 
 
-function solution($A) {
+class PassingCars extends Test {
 
-    $total = 0;
 
-    foreach($A as $pos => $car) {
-        if($car == 0) {
-            // save time skipping everything behind that car by setting starting posx = pos
-            for($posx = $pos; $posx < count($A); $posx++) {
-                if($A[$posx] == 1) {
-                    $total++;
-                }
-            }
+    public function __construct() {
 
-        }
+        $this->testCases = array(
+            [
+                'input' => [0, 1, 0, 1, 1],
+                'expected' => 5
+            ], [
+                'input' => [1, 1, 1],
+                'expected' => 0
+            ], [
+                'input' => [1],
+                'expected' => 0
+            ]);
     }
 
-    return $total;
+
+    public function solution(Array $arr) {
+
+        $totalPasses = 0;
+        $carsRight = 0;
+
+        // Keep track of right-passing cars. If car is going left - increment total by how many cars already passed right
+        foreach($arr as $car) {
+            $car == 0 ? $carsRight++ : $totalPasses += $carsRight;
+        }
+
+        return $totalPasses;
+    }
+
+
 }
 
 
-function solutionTest() {
-    $example = [0, 1, 0, 1, 1];
-
-    return solution($example) == 5;
-}
-
-
+(new PassingCars)->runTests();
 ?>
