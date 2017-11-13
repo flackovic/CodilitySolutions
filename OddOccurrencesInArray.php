@@ -13,13 +13,16 @@ class OddOccurencesInArray extends Test {
 				'input' => [9, 3, 9, 3, 9, 7, 9],
 				'expected' => 7
 			], [
-				'input' => [1, 1, 1, 4], 
+				'input' => [1, 1, 4],
 				'expected' => 4
 			], [
-				'input' => [1], 
+				'input' => [1, 1, 1],
 				'expected' => 1
 			], [
-				'input' => [-1, -1, 5, 4, 4, 0, 0], 
+				'input' => [1],
+				'expected' => 1
+			], [
+				'input' => [-1, -1, 5, 4, 4, 0, 0],
 				'expected' => 5
 			]);
 	}
@@ -27,25 +30,24 @@ class OddOccurencesInArray extends Test {
 
 	public function solution(Array $arr) {
 
-		$valuesCount = array();
+		$valuesFound = array();
 
-		// Count values occurences
+		// Push values to temp array - unset value if pair is found (reset state)
 		foreach($arr as $value) {
-			if(!isset($valuesCount[$value])) {
-				$valuesCount[$value] = 1;
+			if(!in_array($value, $valuesFound)) {
+				$valuesFound[] = $value;
 			} else {
-				$valuesCount[$value]++;
+				$key = array_search($value, $valuesFound);
+				unset($valuesFound[$key]);
 			}
 		}
 
-		// return value that occurs only once
-		foreach($valuesCount as $value => $count) {
-			if($count == 1) {
-				return $value;
-			}
-		}
-
-		return false;
+		/*
+		 * Reindex array and return first element.
+		 * This will fail if input has all paired values, but as stated in challenge
+		 * we can "assume all but one of the values in A occur an even number of times."
+		 */
+		return array_values($valuesFound)[0];
 
 	}
 
