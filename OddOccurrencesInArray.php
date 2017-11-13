@@ -19,6 +19,9 @@ class OddOccurencesInArray extends Test {
 				'input' => [1, 1, 1],
 				'expected' => 1
 			], [
+				'input' => [1, 1, 1, 1, 9],
+				'expected' => 9
+			], [
 				'input' => [1],
 				'expected' => 1
 			], [
